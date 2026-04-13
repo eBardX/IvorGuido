@@ -11,7 +11,7 @@ struct GMNTagParameterTests {
 
 extension GMNTagParameterTests {
     @Test
-    func test_equatable() {
+    func equatable() {
         let param1a = GMNTag.Parameter.integer("dx", 10, .hs)
         let param1b = GMNTag.Parameter.integer("dx", 10, .hs)
         let param2 = GMNTag.Parameter.integer("dy", 10, .hs)
@@ -24,56 +24,56 @@ extension GMNTagParameterTests {
     }
 
     @Test
-    func test_floatingValue_floating() {
+    func floatingValue_floating() {
         let param = GMNTag.Parameter.floating("tempo", 120.0, nil)
 
         #expect(param.floatingValue == 120.0)
     }
 
     @Test
-    func test_floatingValue_nonFloating() {
+    func floatingValue_nonFloating() {
         let param = GMNTag.Parameter.integer(nil, 42, nil)
 
         #expect(param.floatingValue == nil)
     }
 
     @Test
-    func test_hasNameOrNil_matchingName() {
+    func hasNameOrNil_matchingName() {
         let param = GMNTag.Parameter.integer("dx", 10, .hs)
 
         #expect(param.hasNameOrNil("dx"))
     }
 
     @Test
-    func test_hasNameOrNil_mismatchedName() {
+    func hasNameOrNil_mismatchedName() {
         let param = GMNTag.Parameter.integer("dx", 10, .hs)
 
         #expect(!param.hasNameOrNil("dy"))
     }
 
     @Test
-    func test_hasNameOrNil_nilName() {
+    func hasNameOrNil_nilName() {
         let param = GMNTag.Parameter.integer(nil, 10, nil)
 
         #expect(param.hasNameOrNil("anything"))
     }
 
     @Test
-    func test_integerValue_integer() {
+    func integerValue_integer() {
         let param = GMNTag.Parameter.integer(nil, 42, nil)
 
         #expect(param.integerValue == 42)
     }
 
     @Test
-    func test_integerValue_nonInteger() {
+    func integerValue_nonInteger() {
         let param = GMNTag.Parameter.floating(nil, 3.14, nil)
 
         #expect(param.integerValue == nil)
     }
 
     @Test
-    func test_name_allCases() {
+    func name_allCases() {
         #expect(GMNTag.Parameter.floating("a", 1.0, nil).name == "a")
         #expect(GMNTag.Parameter.integer("b", 1, nil).name == "b")
         #expect(GMNTag.Parameter.parameter("c", "val").name == "c")
@@ -82,7 +82,7 @@ extension GMNTagParameterTests {
     }
 
     @Test
-    func test_name_nil() {
+    func name_nil() {
         #expect(GMNTag.Parameter.floating(nil, 1.0, nil).name == nil)
         #expect(GMNTag.Parameter.integer(nil, 1, nil).name == nil)
         #expect(GMNTag.Parameter.parameter(nil, "val").name == nil)
@@ -91,42 +91,42 @@ extension GMNTagParameterTests {
     }
 
     @Test
-    func test_stringValue_nonString() {
+    func stringValue_nonString() {
         let param = GMNTag.Parameter.integer(nil, 42, nil)
 
         #expect(param.stringValue == nil)
     }
 
     @Test
-    func test_stringValue_string() {
+    func stringValue_string() {
         let param = GMNTag.Parameter.string(nil, "hello")
 
         #expect(param.stringValue == "hello")
     }
 
     @Test
-    func test_unit_floating() {
+    func unit_floating() {
         let param = GMNTag.Parameter.floating(nil, 2.5, .cm)
 
         #expect(param.unit == .cm)
     }
 
     @Test
-    func test_unit_integer() {
+    func unit_integer() {
         let param = GMNTag.Parameter.integer(nil, 10, .hs)
 
         #expect(param.unit == .hs)
     }
 
     @Test
-    func test_unit_nonNumeric() {
+    func unit_nonNumeric() {
         #expect(GMNTag.Parameter.parameter(nil, "val").unit == nil)
         #expect(GMNTag.Parameter.string(nil, "val").unit == nil)
         #expect(GMNTag.Parameter.variable(nil, "$x").unit == nil)
     }
 
     @Test
-    func test_unit_rawValues() {
+    func unit_rawValues() {
         #expect(GMNTag.Parameter.Unit(rawValue: "cm") == .cm)
         #expect(GMNTag.Parameter.Unit(rawValue: "hs") == .hs)
         #expect(GMNTag.Parameter.Unit(rawValue: "in") == .in)

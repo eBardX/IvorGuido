@@ -1,7 +1,8 @@
 // © 2025–2026 John Gary Pusey (see LICENSE.md)
 
-/// A duration in a Guido Music Notation score, expressed as a fraction of
-/// a whole note or as an absolute time in milliseconds.
+/// A duration in a Guido Music Notation score, expressed as a fraction of a
+/// whole note (possibly augmented by dots) or as an absolute time in
+/// milliseconds.
 public struct GMNDuration {
 
     // MARK: Public Initializers
@@ -18,45 +19,43 @@ public struct GMNDuration {
         self.value = .milliseconds(milliseconds)
     }
 
-    /// Creates a new duration expressed as a fractional note value.
+    /// Creates a new duration expressed as a fractional note value, possibly
+    /// augmented by dots.
     ///
-    /// If either `numerator` or `denominator` is zero, this initializer
-    /// returns `nil`.
+    /// The fraction is reduced to lowest terms before being stored.
     ///
-    /// - Parameter numerator:      The numerator of the note fraction.
-    /// - Parameter denominator:    The denominator of the note fraction.
-    public init?(numerator: UInt,
-                 denominator: UInt) {
-        guard numerator > 0,
-              denominator > 0
-        else { return nil }
-
-        self.value = .fraction(numerator, denominator)
-    }
-
-    /// Creates a new duration expressed as a dotted fractional note value.
-    ///
-    /// If either `numerator` or `denominator` is zero, or if `dots` is not
-    /// in the range `1...3`, this initializer returns `nil`.
+    /// If either `numerator` or `denominator` is zero, or if `dots` is not in
+    /// the range `0...3`, this initializer returns `nil`.
     ///
     /// - Parameter numerator:      The numerator of the note fraction.
     /// - Parameter denominator:    The denominator of the note fraction.
-    /// - Parameter dots:           The number of augmentation dots (1–3).
+    /// - Parameter dots:           The number of augmentation dots (0–3).
+    ///                             Defaults to zero.
     public init?(numerator: UInt,
                  denominator: UInt,
-                 dots: UInt) {
+                 dots: UInt = 0) {
         guard numerator > 0,
               denominator > 0,
-              (1...3).contains(dots)
+              (0...3).contains(dots)
         else { return nil }
 
-        self.value = .fractionDots(numerator, denominator, dots)
-    }
+        var num = numerator
+        var den = denominator
 
-    // MARK: Internal Initializers
+        if den != 1 {
+            if num != 0 {
+                let tmp = _gcd(num, den)
 
-    internal init(_ value: Value) {
-        self.value = value
+                if tmp != 1 {
+                    num /= tmp
+                    den /= tmp
+                }
+            } else {
+                den = 1
+            }
+        }
+
+        self.value = .fractionDots(num, den, dots)
     }
 
     // MARK: Internal Instance Properties
@@ -68,21 +67,58 @@ public struct GMNDuration {
 
 extension GMNDuration {
 
-    // MARK: Internal Type Methods
+    // MARK: Public Instance Properties
 
-    internal static func fraction(_ numerator: UInt,
-                                  _ denominator: UInt) -> GMNDuration {
-        GMNDuration(.fraction(numerator, denominator))
+    /// The denominator of the note fraction.
+    ///
+    /// Returns `nil` if this duration is expressed in milliseconds.
+    public var denominator: UInt? {
+        switch value {
+        case let .fractionDots(_, den, _):
+            den
+
+        default:
+            nil
+        }
     }
 
-    internal static func fractionDots(_ numerator: UInt,
-                                      _ denominator: UInt,
-                                      _ dots: UInt) -> GMNDuration {
-        GMNDuration(.fractionDots(numerator, denominator, dots))
+    /// The number of augmentation dots (0–3).
+    ///
+    /// Returns `nil` if this duration is expressed in milliseconds.
+    public var dots: UInt? {
+        switch value {
+        case let .fractionDots(_, _, dots):
+            dots
+
+        default:
+            nil
+        }
     }
 
-    internal static func milliseconds(_ value: UInt) -> GMNDuration {
-        GMNDuration(.milliseconds(value))
+    /// The duration in milliseconds.
+    ///
+    /// Returns `nil` if this duration is expressed as a fractional note value.
+    public var milliseconds: UInt? {
+        switch value {
+        case let .milliseconds(ms):
+            ms
+
+        default:
+            nil
+        }
+    }
+
+    /// The numerator of the note fraction.
+    ///
+    /// Returns `nil` if this duration is expressed in milliseconds.
+    public var numerator: UInt? {
+        switch value {
+        case let .fractionDots(num, _, _):
+            num
+
+        default:
+            nil
+        }
     }
 }
 
@@ -94,4 +130,18 @@ extension GMNDuration: Equatable {
 // MARK: - Sendable
 
 extension GMNDuration: Sendable {
+}
+
+// MARK: - Private Functions
+
+private func _gcd(_ n1: UInt,
+                  _ n2: UInt) -> UInt {
+    var val1 = n1
+    var val2 = n2
+
+    while val2 != 0 {
+        (val1, val2) = (val2, val1 % val2)
+    }
+
+    return val1
 }

@@ -11,7 +11,7 @@ struct GMNPitchTests {
 
 extension GMNPitchTests {
     @Test
-    func test_accidental_allCases() {
+    func accidental_allCases() {
         let cases: [GMNPitch.Accidental] = [.doubleFlat, .flat, .natural, .sharp, .doubleSharp]
 
         #expect(cases.count == 5)
@@ -24,7 +24,7 @@ extension GMNPitchTests {
     }
 
     @Test
-    func test_equatable() {
+    func equatable() {
         let pitch1 = GMNPitch(letter: .c, accidental: .sharp, octave: 4)
         let pitch2 = GMNPitch(letter: .c, accidental: .sharp, octave: 4)
         let pitch3 = GMNPitch(letter: .c, accidental: .flat, octave: 4)
@@ -34,7 +34,7 @@ extension GMNPitchTests {
     }
 
     @Test
-    func test_equatable_accidental() {
+    func equatable_accidental() {
         let acc1a = GMNPitch.Accidental.sharp
         let acc1b = GMNPitch.Accidental.sharp
         let acc2 = GMNPitch.Accidental.flat
@@ -44,7 +44,7 @@ extension GMNPitchTests {
     }
 
     @Test
-    func test_equatable_letter() {
+    func equatable_letter() {
         let let1a = GMNPitch.Letter.c
         let let1b = GMNPitch.Letter.c
         let let2 = GMNPitch.Letter.d
@@ -54,7 +54,7 @@ extension GMNPitchTests {
     }
 
     @Test
-    func test_init() {
+    func `init`() {
         let pitch = GMNPitch(letter: .f, accidental: .sharp, octave: 5)
 
         #expect(pitch.letter == .f)
@@ -63,7 +63,7 @@ extension GMNPitchTests {
     }
 
     @Test
-    func test_init_differentOctaves() {
+    func init_differentOctaves() {
         let pitch1 = GMNPitch(letter: .c, accidental: .natural, octave: 0)
         let pitch2 = GMNPitch(letter: .c, accidental: .natural, octave: 8)
 
@@ -73,7 +73,7 @@ extension GMNPitchTests {
     }
 
     @Test
-    func test_letter_allCases() {
+    func letter_allCases() {
         let cases: [GMNPitch.Letter] = [.a, .b, .c, .d, .e, .f, .g, .empty]
 
         #expect(cases.count == 8)

@@ -11,11 +11,11 @@ struct GMNSymbolTests {
 
 extension GMNSymbolTests {
     @Test
-    func test_equatable() {
+    func equatable() {
         let note1 = GMNNote(pitch: GMNPitch(letter: .c, accidental: .natural, octave: 4),
-                            duration: .fraction(1, 4))
+                            duration: fdur(1, 4))
         let note2 = GMNNote(pitch: GMNPitch(letter: .c, accidental: .natural, octave: 4),
-                            duration: .fraction(1, 4))
+                            duration: fdur(1, 4))
         let var1 = "$x"
         let var2 = "$x"
 
@@ -25,11 +25,11 @@ extension GMNSymbolTests {
     }
 
     @Test
-    func test_isMusic_chord() throws {
+    func isMusic_chord() throws {
         let note = GMNNote(pitch: GMNPitch(letter: .c,
                                            accidental: .natural,
                                            octave: 4),
-                           duration: .fraction(1, 4))
+                           duration: fdur(1, 4))
         let segment = try #require(GMNChord.Segment(symbols: [.note(note)]))
         let symbol = GMNSymbol.chord(GMNChord(segments: [segment]))
 
@@ -37,37 +37,37 @@ extension GMNSymbolTests {
     }
 
     @Test
-    func test_isMusic_note() {
+    func isMusic_note() {
         let note = GMNNote(pitch: GMNPitch(letter: .c,
                                            accidental: .natural,
                                            octave: 4),
-                           duration: .fraction(1, 4))
+                           duration: fdur(1, 4))
 
         #expect(GMNSymbol.note(note).isMusic)
     }
 
     @Test
-    func test_isMusic_rest() {
-        let rest = GMNRest(duration: .fraction(1, 4))
+    func isMusic_rest() {
+        let rest = GMNRest(duration: fdur(1, 4))
 
         #expect(GMNSymbol.rest(rest).isMusic)
     }
 
     @Test
-    func test_isMusic_tablature() {
+    func isMusic_tablature() {
         let tab = GMNTablature(tabString: 1,
                                fret: "5",
-                               duration: .fraction(1, 4))
+                               duration: fdur(1, 4))
 
         #expect(GMNSymbol.tablature(tab).isMusic)
     }
 
     @Test
-    func test_isMusic_tagWithMusic() {
+    func isMusic_tagWithMusic() {
         let note = GMNNote(pitch: GMNPitch(letter: .c,
                                            accidental: .natural,
                                            octave: 4),
-                           duration: .fraction(1, 4))
+                           duration: fdur(1, 4))
         let tag = GMNTag(name: "\\slur",
                          ident: nil,
                          parameters: [],
@@ -77,7 +77,7 @@ extension GMNSymbolTests {
     }
 
     @Test
-    func test_isMusic_tagWithoutMusic() {
+    func isMusic_tagWithoutMusic() {
         let tag = GMNTag(name: "\\tempo",
                          ident: nil,
                          parameters: [],
@@ -87,24 +87,24 @@ extension GMNSymbolTests {
     }
 
     @Test
-    func test_isMusic_variable() {
+    func isMusic_variable() {
         #expect(!GMNSymbol.variable("$x").isMusic)
     }
 
     @Test
-    func test_tagValue_nonTag() {
+    func tagValue_nonTag() {
         let note = GMNNote(pitch: GMNPitch(letter: .c,
                                            accidental: .natural,
                                            octave: 4),
-                           duration: .fraction(1, 4))
+                           duration: fdur(1, 4))
 
         #expect(GMNSymbol.note(note).tagValue == nil)
-        #expect(GMNSymbol.rest(GMNRest(duration: .fraction(1, 4))).tagValue == nil)
+        #expect(GMNSymbol.rest(GMNRest(duration: fdur(1, 4))).tagValue == nil)
         #expect(GMNSymbol.variable("$x").tagValue == nil)
     }
 
     @Test
-    func test_tagValue_tag() {
+    func tagValue_tag() {
         let tag = GMNTag(name: "\\tempo",
                          ident: nil,
                          parameters: [],

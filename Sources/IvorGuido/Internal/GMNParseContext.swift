@@ -21,8 +21,9 @@ extension GMNParseContext {
 
     // MARK: Private Type Properties
 
-    private static let defaultDuration: GMNDuration   = .fraction(1, 4)
-    private static let defaultOctave: GMNPitch.Octave = 4               // standard octave equivalent of Guido octave 1
+    private static let defaultDuration = GMNDuration(numerator: 1,
+                                                     denominator: 4)!  // swiftlint:disable:this force_unwrapping
+    private static let defaultOctave   = GMNPitch.Octave(4)              // standard octave equivalent of Guido octave 1
 }
 
 // MARK: - Sendable

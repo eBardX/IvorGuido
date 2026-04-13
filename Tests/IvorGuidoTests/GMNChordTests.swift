@@ -11,52 +11,11 @@ struct GMNChordTests {
 
 extension GMNChordTests {
     @Test
-    func test_init() throws {
-        let note = GMNNote(pitch: GMNPitch(letter: .c,
-                                           accidental: .natural,
-                                           octave: 4),
-                           duration: .fraction(1, 4))
-        let segment = try #require(GMNChord.Segment(symbols: [.note(note)]))
-        let chord = GMNChord(segments: [segment])
-
-        #expect(chord.segments.count == 1)
-        #expect(chord.segments[0].symbols.count == 1)
-    }
-
-    @Test
-    func test_init_emptySegments() {
-        let chord = GMNChord(segments: [])
-
-        #expect(chord.segments.isEmpty)
-    }
-
-    @Test
-    func test_init_multipleSegments() throws {
-        let note1 = GMNNote(pitch: GMNPitch(letter: .c,
-                                            accidental: .natural,
-                                            octave: 4),
-                            duration: .fraction(1, 4))
-        let note2 = GMNNote(pitch: GMNPitch(letter: .e,
-                                            accidental: .natural,
-                                            octave: 4),
-                            duration: .fraction(1, 4))
-        let seg1 = try #require(GMNChord.Segment(symbols: [.note(note1)]))
-        let seg2 = try #require(GMNChord.Segment(symbols: [.note(note2)]))
-        let chord = GMNChord(segments: [seg1, seg2])
-
-        #expect(chord.segments.count == 2)
-    }
-}
-
-// MARK: -
-
-extension GMNChordTests {
-    @Test
-    func test_equatable() throws {
+    func equatable() throws {
         let note1 = GMNNote(pitch: GMNPitch(letter: .c, accidental: .natural, octave: 4),
-                            duration: .fraction(1, 4))
+                            duration: fdur(1, 4))
         let note2 = GMNNote(pitch: GMNPitch(letter: .e, accidental: .natural, octave: 4),
-                            duration: .fraction(1, 4))
+                            duration: fdur(1, 4))
         let seg1 = try #require(GMNChord.Segment(symbols: [.note(note1)]))
         let seg2 = try #require(GMNChord.Segment(symbols: [.note(note2)]))
         let chord1 = GMNChord(segments: [seg1])
@@ -68,11 +27,48 @@ extension GMNChordTests {
     }
 
     @Test
-    func test_segment_equatable() throws {
+    func `init`() throws {
+        let note = GMNNote(pitch: GMNPitch(letter: .c,
+                                           accidental: .natural,
+                                           octave: 4),
+                           duration: fdur(1, 4))
+        let segment = try #require(GMNChord.Segment(symbols: [.note(note)]))
+        let chord = GMNChord(segments: [segment])
+
+        #expect(chord.segments.count == 1)
+        #expect(chord.segments[0].symbols.count == 1)
+    }
+
+    @Test
+    func init_emptySegments() {
+        let chord = GMNChord(segments: [])
+
+        #expect(chord.segments.isEmpty)
+    }
+
+    @Test
+    func init_multipleSegments() throws {
+        let note1 = GMNNote(pitch: GMNPitch(letter: .c,
+                                            accidental: .natural,
+                                            octave: 4),
+                            duration: fdur(1, 4))
+        let note2 = GMNNote(pitch: GMNPitch(letter: .e,
+                                            accidental: .natural,
+                                            octave: 4),
+                            duration: fdur(1, 4))
+        let seg1 = try #require(GMNChord.Segment(symbols: [.note(note1)]))
+        let seg2 = try #require(GMNChord.Segment(symbols: [.note(note2)]))
+        let chord = GMNChord(segments: [seg1, seg2])
+
+        #expect(chord.segments.count == 2)
+    }
+
+    @Test
+    func segment_equatable() throws {
         let note1 = GMNNote(pitch: GMNPitch(letter: .c, accidental: .natural, octave: 4),
-                            duration: .fraction(1, 4))
+                            duration: fdur(1, 4))
         let note2 = GMNNote(pitch: GMNPitch(letter: .e, accidental: .natural, octave: 4),
-                            duration: .fraction(1, 4))
+                            duration: fdur(1, 4))
         let seg1 = try #require(GMNChord.Segment(symbols: [.note(note1)]))
         let seg2 = try #require(GMNChord.Segment(symbols: [.note(note1)]))
         let seg3 = try #require(GMNChord.Segment(symbols: [.note(note2)]))
@@ -82,11 +78,11 @@ extension GMNChordTests {
     }
 
     @Test
-    func test_segment_init_failure_nestedChord() throws {
+    func segment_init_failure_nestedChord() throws {
         let innerNote = GMNNote(pitch: GMNPitch(letter: .c,
                                                 accidental: .natural,
                                                 octave: 4),
-                                duration: .fraction(1, 4))
+                                duration: fdur(1, 4))
         let innerSegment = try #require(GMNChord.Segment(symbols: [.note(innerNote)]))
         let innerChord = GMNChord(segments: [innerSegment])
         let segment = GMNChord.Segment(symbols: [.chord(innerChord)])
@@ -95,11 +91,11 @@ extension GMNChordTests {
     }
 
     @Test
-    func test_segment_init_failure_nestedChordInTag() throws {
+    func segment_init_failure_nestedChordInTag() throws {
         let innerNote = GMNNote(pitch: GMNPitch(letter: .c,
                                                 accidental: .natural,
                                                 octave: 4),
-                                duration: .fraction(1, 4))
+                                duration: fdur(1, 4))
         let innerSegment = try #require(GMNChord.Segment(symbols: [.note(innerNote)]))
         let innerChord = GMNChord(segments: [innerSegment])
         let tag = GMNTag(name: "\\slur",
@@ -112,11 +108,11 @@ extension GMNChordTests {
     }
 
     @Test
-    func test_segment_init_success() {
+    func segment_init_success() {
         let note = GMNNote(pitch: GMNPitch(letter: .c,
                                            accidental: .natural,
                                            octave: 4),
-                           duration: .fraction(1, 4))
+                           duration: fdur(1, 4))
         let segment = GMNChord.Segment(symbols: [.note(note)])
 
         #expect(segment != nil)
@@ -124,11 +120,11 @@ extension GMNChordTests {
     }
 
     @Test
-    func test_segment_init_success_withTag() {
+    func segment_init_success_withTag() {
         let note = GMNNote(pitch: GMNPitch(letter: .c,
                                            accidental: .natural,
                                            octave: 4),
-                           duration: .fraction(1, 4))
+                           duration: fdur(1, 4))
         let tag = GMNTag(name: "\\accent",
                          ident: nil,
                          parameters: [],

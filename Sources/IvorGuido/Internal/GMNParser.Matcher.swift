@@ -49,24 +49,23 @@ extension GMNParser.Matcher {
 
         if let denom = result.denominator,
            let numer = result.numerator {
-            if let dots = result.dots {
-                context.lastDuration = .fractionDots(numer, denom, dots)
-            } else {
-                context.lastDuration = .fraction(numer, denom)
+            if let duration = GMNDuration(numerator: numer,
+                                          denominator: denom,
+                                          dots: result.dots ?? 0) {
+                context.lastDuration = duration
             }
-        } else if let numer = result.numerator {
-            context.lastDuration = .milliseconds(numer)
-        } else if let dots = result.dots {
+        } else if let numer = result.numerator,
+                  let duration = GMNDuration(milliseconds: numer) {
+            context.lastDuration = duration
+        } else if let dots = result.dots,    // dots > 0
+                  let denom = context.lastDuration.denominator,
+                  let numer = context.lastDuration.numerator,
+                  let duration = GMNDuration(numerator: numer,
+                                             denominator: denom,
+                                             dots: dots) {
             // Dots-only: apply dots to the previous fraction duration;
             // ignored if the previous duration was milliseconds.
-            switch context.lastDuration.value {
-            case let .fraction(numer, denom),
-                let .fractionDots(numer, denom, _):
-                context.lastDuration = .fractionDots(numer, denom, dots)
-
-            default:
-                break
-            }
+            context.lastDuration = duration
         }
 
         return context.lastDuration

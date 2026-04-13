@@ -11,11 +11,11 @@ struct GMNVoiceTests {
 
 extension GMNVoiceTests {
     @Test
-    func test_equatable() {
+    func equatable() {
         let note1 = GMNNote(pitch: GMNPitch(letter: .c, accidental: .natural, octave: 4),
-                            duration: .fraction(1, 4))
+                            duration: fdur(1, 4))
         let note2 = GMNNote(pitch: GMNPitch(letter: .c, accidental: .natural, octave: 4),
-                            duration: .fraction(1, 4))
+                            duration: fdur(1, 4))
         let voice1 = GMNVoice(symbols: [.note(note1)])
         let voice2 = GMNVoice(symbols: [.note(note2)])
         let voice3 = GMNVoice(symbols: [])
@@ -25,7 +25,7 @@ extension GMNVoiceTests {
     }
 
     @Test
-    func test_findAllTags_matchingName() {
+    func findAllTags_matchingName() {
         let tag1 = GMNTag(name: "\\slur",
                           ident: nil,
                           parameters: [],
@@ -48,7 +48,7 @@ extension GMNVoiceTests {
     }
 
     @Test
-    func test_findAllTags_matchingNames() {
+    func findAllTags_matchingNames() {
         let tag1 = GMNTag(name: "\\slur",
                           ident: nil,
                           parameters: [],
@@ -71,7 +71,7 @@ extension GMNVoiceTests {
     }
 
     @Test
-    func test_findAllTags_nested() {
+    func findAllTags_nested() {
         let innerTag = GMNTag(name: "\\accent",
                               ident: nil,
                               parameters: [],
@@ -89,7 +89,7 @@ extension GMNVoiceTests {
     }
 
     @Test
-    func test_findAllTags_noMatch() {
+    func findAllTags_noMatch() {
         let tag = GMNTag(name: "\\slur",
                          ident: nil,
                          parameters: [],
@@ -102,7 +102,7 @@ extension GMNVoiceTests {
     }
 
     @Test
-    func test_findAllTags_wherePredicate() {
+    func findAllTags_wherePredicate() {
         let tag1 = GMNTag(name: "\\slur",
                           ident: 1,
                           parameters: [],
@@ -120,7 +120,7 @@ extension GMNVoiceTests {
     }
 
     @Test
-    func test_findFirstTag_matchingName() {
+    func findFirstTag_matchingName() {
         let tag1 = GMNTag(name: "\\slur",
                           ident: 1,
                           parameters: [],
@@ -138,7 +138,7 @@ extension GMNVoiceTests {
     }
 
     @Test
-    func test_findFirstTag_matchingNames() {
+    func findFirstTag_matchingNames() {
         let tag1 = GMNTag(name: "\\accent",
                           ident: nil,
                           parameters: [],
@@ -156,7 +156,7 @@ extension GMNVoiceTests {
     }
 
     @Test
-    func test_findFirstTag_nested() {
+    func findFirstTag_nested() {
         let innerTag = GMNTag(name: "\\accent",
                               ident: nil,
                               parameters: [],
@@ -174,7 +174,7 @@ extension GMNVoiceTests {
     }
 
     @Test
-    func test_findFirstTag_noMatch() {
+    func findFirstTag_noMatch() {
         let tag = GMNTag(name: "\\slur",
                          ident: nil,
                          parameters: [],
@@ -187,7 +187,7 @@ extension GMNVoiceTests {
     }
 
     @Test
-    func test_findFirstTag_wherePredicate() {
+    func findFirstTag_wherePredicate() {
         let tag1 = GMNTag(name: "\\slur",
                           ident: nil,
                           parameters: [],
@@ -205,29 +205,29 @@ extension GMNVoiceTests {
     }
 
     @Test
-    func test_init() {
+    func `init`() {
         let note = GMNNote(pitch: GMNPitch(letter: .c,
                                            accidental: .natural,
                                            octave: 4),
-                           duration: .fraction(1, 4))
+                           duration: fdur(1, 4))
         let voice = GMNVoice(symbols: [.note(note)])
 
         #expect(voice.symbols.count == 1)
     }
 
     @Test
-    func test_init_empty() {
+    func init_empty() {
         let voice = GMNVoice(symbols: [])
 
         #expect(voice.symbols.isEmpty)
     }
 
     @Test
-    func test_noTags() {
+    func noTags() {
         let note = GMNNote(pitch: GMNPitch(letter: .c,
                                            accidental: .natural,
                                            octave: 4),
-                           duration: .fraction(1, 4))
+                           duration: fdur(1, 4))
         let voice = GMNVoice(symbols: [.note(note), .variable("$x")])
 
         #expect(voice.findAllTags(matching: "\\slur").isEmpty)

@@ -12,7 +12,7 @@ struct GMNParserTests {
 
 extension GMNParserTests {
     @Test
-    func test_parse_chord() throws {
+    func parse_chord() throws {
         let input = "[ {c, e, g} ]"
         let data = Data(input.utf8)
         let parser = GMNParser()
@@ -34,7 +34,7 @@ extension GMNParserTests {
     }
 
     @Test
-    func test_parse_chordWithTags() throws {
+    func parse_chordWithTags() throws {
         let input = "[ {\\accent(c), e, g} ]"
         let data = Data(input.utf8)
         let parser = GMNParser()
@@ -59,7 +59,7 @@ extension GMNParserTests {
     }
 
     @Test
-    func test_parse_dataConversionFailed() throws {
+    func parse_dataConversionFailed() throws {
         let data = Data([0xFF, 0xFE])
         let parser = GMNParser()
 
@@ -69,7 +69,7 @@ extension GMNParserTests {
     }
 
     @Test
-    func test_parse_multipleVoices() throws {
+    func parse_multipleVoices() throws {
         let input = "{ [c d e], [g a b] }"
         let data = Data(input.utf8)
         let parser = GMNParser()
@@ -81,7 +81,7 @@ extension GMNParserTests {
     }
 
     @Test
-    func test_parse_noteWithAccidental() throws {
+    func parse_noteWithAccidental() throws {
         let input = "[ c# d& e&& f## ]"
         let data = Data(input.utf8)
         let parser = GMNParser()
@@ -110,7 +110,7 @@ extension GMNParserTests {
     }
 
     @Test
-    func test_parse_noteWithDuration() throws {
+    func parse_noteWithDuration() throws {
         let input = "[ c/4 d/8 e*3/4 ]"
         let data = Data(input.utf8)
         let parser = GMNParser()
@@ -127,9 +127,9 @@ extension GMNParserTests {
 
         #expect(note1.pitch.letter == .c)
 
-        guard case let .fraction(n, d) = note1.duration.value
+        guard case let .fractionDots(n, d, _) = note1.duration.value
         else {
-            Issue.record("Expected fraction duration")
+            Issue.record("Expected fractionDots duration")
             return
         }
 
@@ -138,7 +138,7 @@ extension GMNParserTests {
     }
 
     @Test
-    func test_parse_noteWithExcessiveAccidental() throws {
+    func parse_noteWithExcessiveAccidental() throws {
         let input = "[ c### ]"
         let data = Data(input.utf8)
         let parser = GMNParser()
@@ -149,7 +149,7 @@ extension GMNParserTests {
     }
 
     @Test
-    func test_parse_rest() throws {
+    func parse_rest() throws {
         let input = "[ c _/4 d ]"
         let data = Data(input.utf8)
         let parser = GMNParser()
@@ -164,9 +164,9 @@ extension GMNParserTests {
             return
         }
 
-        guard case let .fraction(n, d) = rest.duration.value
+        guard case let .fractionDots(n, d, _) = rest.duration.value
         else {
-            Issue.record("Expected fraction duration")
+            Issue.record("Expected fractionDots duration")
             return
         }
 
@@ -175,7 +175,7 @@ extension GMNParserTests {
     }
 
     @Test
-    func test_parse_simpleNotes() throws {
+    func parse_simpleNotes() throws {
         let input = "[ c d e f g ]"
         let data = Data(input.utf8)
         let parser = GMNParser()
@@ -195,7 +195,7 @@ extension GMNParserTests {
     }
 
     @Test
-    func test_parse_tagWithParameters() throws {
+    func parse_tagWithParameters() throws {
         let input = "[ \\tempo<\"Allegro\", 120> (c d e) ]"
         let data = Data(input.utf8)
         let parser = GMNParser()
@@ -218,7 +218,7 @@ extension GMNParserTests {
     }
 
     @Test
-    func test_parse_tagWithoutParameters() throws {
+    func parse_tagWithoutParameters() throws {
         let input = "[ \\slurBegin c d e \\slurEnd ]"
         let data = Data(input.utf8)
         let parser = GMNParser()
@@ -239,7 +239,7 @@ extension GMNParserTests {
     }
 
     @Test
-    func test_parse_variables() throws {
+    func parse_variables() throws {
         let input = "$tempo = 120; [ c d e ]"
         let data = Data(input.utf8)
         let parser = GMNParser()
@@ -258,7 +258,7 @@ extension GMNParserTests {
     }
 
     @Test
-    func test_parse_variablesFloating() throws {
+    func parse_variablesFloating() throws {
         let input = "$pi = 3.14; [ c ]"
         let data = Data(input.utf8)
         let parser = GMNParser()
@@ -276,7 +276,7 @@ extension GMNParserTests {
     }
 
     @Test
-    func test_parse_variablesString() throws {
+    func parse_variablesString() throws {
         let input = "$title = \"My Song\"; [ c ]"
         let data = Data(input.utf8)
         let parser = GMNParser()

@@ -11,7 +11,7 @@ struct GMNVariableTests {
 
 extension GMNVariableTests {
     @Test
-    func test_equatable() {
+    func equatable() {
         let var1 = GMNVariable(name: "$x", value: .integer(42))
         let var2 = GMNVariable(name: "$x", value: .integer(42))
         let var3 = GMNVariable(name: "$y", value: .integer(42))
@@ -21,7 +21,7 @@ extension GMNVariableTests {
     }
 
     @Test
-    func test_equatable_value() {
+    func equatable_value() {
         let int1a = GMNVariable.Value.integer(42)
         let int1b = GMNVariable.Value.integer(42)
         let int2 = GMNVariable.Value.integer(99)
@@ -38,7 +38,7 @@ extension GMNVariableTests {
     }
 
     @Test
-    func test_init_floating() {
+    func init_floating() {
         let variable = GMNVariable(name: "$pi", value: .floating(3.14))
 
         #expect(variable.name == "$pi")
@@ -53,7 +53,7 @@ extension GMNVariableTests {
     }
 
     @Test
-    func test_init_integer() {
+    func init_integer() {
         let variable = GMNVariable(name: "$tempo", value: .integer(120))
 
         #expect(variable.name == "$tempo")
@@ -68,7 +68,7 @@ extension GMNVariableTests {
     }
 
     @Test
-    func test_init_string() {
+    func init_string() {
         let variable = GMNVariable(name: "$title", value: .string("My Song"))
 
         #expect(variable.name == "$title")
@@ -83,7 +83,7 @@ extension GMNVariableTests {
     }
 
     @Test
-    func test_value_crossCaseInequality() {
+    func value_crossCaseInequality() {
         let intVal = GMNVariable.Value.integer(1)
         let fltVal = GMNVariable.Value.floating(1.0)
         let strVal = GMNVariable.Value.string("1")
