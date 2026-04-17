@@ -1,5 +1,7 @@
 // © 2025–2026 John Gary Pusey (see LICENSE.md)
 
+private import XestiTools
+
 /// A duration in a Guido Music Notation score, expressed as a fraction of a
 /// whole note (possibly augmented by dots) or as an absolute time in
 /// milliseconds.
@@ -44,7 +46,7 @@ public struct GMNDuration {
 
         if den != 1 {
             if num != 0 {
-                let tmp = _gcd(num, den)
+                let tmp = UInt.gcd(num, den)
 
                 if tmp != 1 {
                     num /= tmp
@@ -130,18 +132,4 @@ extension GMNDuration: Equatable {
 // MARK: - Sendable
 
 extension GMNDuration: Sendable {
-}
-
-// MARK: - Private Functions
-
-private func _gcd(_ n1: UInt,
-                  _ n2: UInt) -> UInt {
-    var val1 = n1
-    var val2 = n2
-
-    while val2 != 0 {
-        (val1, val2) = (val2, val1 % val2)
-    }
-
-    return val1
 }

@@ -30,6 +30,7 @@ extension GMNParser {
     ///
     /// - Parameter data:   The UTF-8 encoded GMN data to parse.
     /// - Returns:          The parsed score.
+    ///
     /// - Throws:           A ``GMNParseError`` if parsing fails.
     public func parse(_ data: Data) throws -> GMNScore {
          guard let input = String(data: data,
