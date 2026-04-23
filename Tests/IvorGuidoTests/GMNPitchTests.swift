@@ -25,9 +25,9 @@ extension GMNPitchTests {
 
     @Test
     func equatable() {
-        let pitch1 = GMNPitch(letter: .c, accidental: .sharp, octave: 4)
-        let pitch2 = GMNPitch(letter: .c, accidental: .sharp, octave: 4)
-        let pitch3 = GMNPitch(letter: .c, accidental: .flat, octave: 4)
+        let pitch1 = GMNPitch(name: .c, accidental: .sharp, octave: 4)
+        let pitch2 = GMNPitch(name: .c, accidental: .sharp, octave: 4)
+        let pitch3 = GMNPitch(name: .c, accidental: .flat, octave: 4)
 
         #expect(pitch1 == pitch2)
         #expect(pitch1 != pitch3)
@@ -44,10 +44,10 @@ extension GMNPitchTests {
     }
 
     @Test
-    func equatable_letter() {
-        let let1a = GMNPitch.Letter.c
-        let let1b = GMNPitch.Letter.c
-        let let2 = GMNPitch.Letter.d
+    func equatable_name() {
+        let let1a = GMNPitch.Name.c
+        let let1b = GMNPitch.Name.c
+        let let2 = GMNPitch.Name.d
 
         #expect(let1a == let1b)
         #expect(let1a != let2)
@@ -55,17 +55,17 @@ extension GMNPitchTests {
 
     @Test
     func `init`() {
-        let pitch = GMNPitch(letter: .f, accidental: .sharp, octave: 5)
+        let pitch = GMNPitch(name: .f, accidental: .sharp, octave: 5)
 
-        #expect(pitch.letter == .f)
+        #expect(pitch.name == .f)
         #expect(pitch.accidental == .sharp)
         #expect(pitch.octave == 5)
     }
 
     @Test
     func init_differentOctaves() {
-        let pitch1 = GMNPitch(letter: .c, accidental: .natural, octave: 0)
-        let pitch2 = GMNPitch(letter: .c, accidental: .natural, octave: 8)
+        let pitch1 = GMNPitch(name: .c, accidental: .natural, octave: 0)
+        let pitch2 = GMNPitch(name: .c, accidental: .natural, octave: 8)
 
         #expect(pitch1.octave == 0)
         #expect(pitch2.octave == 8)
@@ -73,8 +73,8 @@ extension GMNPitchTests {
     }
 
     @Test
-    func letter_allCases() {
-        let cases: [GMNPitch.Letter] = [.a, .b, .c, .d, .e, .f, .g, .empty]
+    func name_allCases() {
+        let cases: [GMNPitch.Name] = [.a, .b, .c, .d, .e, .f, .g, .empty]
 
         #expect(cases.count == 8)
 

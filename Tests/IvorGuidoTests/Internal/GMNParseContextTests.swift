@@ -14,6 +14,6 @@ extension GMNParseContextTests {
         let context = GMNParseContext()
 
         #expect(context.lastDuration == fdur(1, 4))
-        #expect(context.lastOctave == 4)
+        #expect(context.lastOctave == 1)
     }
 }

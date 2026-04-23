@@ -56,7 +56,7 @@ extension GMNTagTests {
 
     @Test
     func init_withSymbols() {
-        let note = GMNNote(pitch: GMNPitch(letter: .c, accidental: .natural, octave: 4),
+        let note = GMNNote(pitch: GMNPitch(name: .c, accidental: .natural, octave: 4),
                            duration: fdur(1, 4))
         let tag = GMNTag(name: "\\slur", ident: nil, parameters: [], symbols: [.note(note)])
 

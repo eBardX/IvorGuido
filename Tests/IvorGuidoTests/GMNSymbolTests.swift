@@ -12,9 +12,9 @@ struct GMNSymbolTests {
 extension GMNSymbolTests {
     @Test
     func equatable() {
-        let note1 = GMNNote(pitch: GMNPitch(letter: .c, accidental: .natural, octave: 4),
+        let note1 = GMNNote(pitch: GMNPitch(name: .c, accidental: .natural, octave: 4),
                             duration: fdur(1, 4))
-        let note2 = GMNNote(pitch: GMNPitch(letter: .c, accidental: .natural, octave: 4),
+        let note2 = GMNNote(pitch: GMNPitch(name: .c, accidental: .natural, octave: 4),
                             duration: fdur(1, 4))
         let var1 = "$x"
         let var2 = "$x"
@@ -26,7 +26,7 @@ extension GMNSymbolTests {
 
     @Test
     func isMusic_chord() throws {
-        let note = GMNNote(pitch: GMNPitch(letter: .c,
+        let note = GMNNote(pitch: GMNPitch(name: .c,
                                            accidental: .natural,
                                            octave: 4),
                            duration: fdur(1, 4))
@@ -38,7 +38,7 @@ extension GMNSymbolTests {
 
     @Test
     func isMusic_note() {
-        let note = GMNNote(pitch: GMNPitch(letter: .c,
+        let note = GMNNote(pitch: GMNPitch(name: .c,
                                            accidental: .natural,
                                            octave: 4),
                            duration: fdur(1, 4))
@@ -64,7 +64,7 @@ extension GMNSymbolTests {
 
     @Test
     func isMusic_tagWithMusic() {
-        let note = GMNNote(pitch: GMNPitch(letter: .c,
+        let note = GMNNote(pitch: GMNPitch(name: .c,
                                            accidental: .natural,
                                            octave: 4),
                            duration: fdur(1, 4))
@@ -93,7 +93,7 @@ extension GMNSymbolTests {
 
     @Test
     func tagValue_nonTag() {
-        let note = GMNNote(pitch: GMNPitch(letter: .c,
+        let note = GMNNote(pitch: GMNPitch(name: .c,
                                            accidental: .natural,
                                            octave: 4),
                            duration: fdur(1, 4))

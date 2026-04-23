@@ -45,7 +45,7 @@ extension GMNParseErrorTests {
 
     @Test
     func message_invalidChordSegment() {
-        let note = GMNNote(pitch: GMNPitch(letter: .c,
+        let note = GMNNote(pitch: GMNPitch(name: .c,
                                            accidental: .natural,
                                            octave: 4),
                            duration: fdur(1, 4))

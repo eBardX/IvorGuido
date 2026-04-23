@@ -25,7 +25,7 @@ extension GMNScoreTests {
     @Test
     func `init`() {
         let variable = GMNVariable(name: "$tempo", value: .integer(120))
-        let note = GMNNote(pitch: GMNPitch(letter: .c, accidental: .natural, octave: 4),
+        let note = GMNNote(pitch: GMNPitch(name: .c, accidental: .natural, octave: 4),
                            duration: fdur(1, 4))
         let voice = GMNVoice(symbols: [.note(note)])
         let score = GMNScore(variables: [variable], voices: [voice])

@@ -67,33 +67,33 @@ extension GMNParseFunctionsTests {
 
     @Test
     func parseNote_solfege() {
-        #expect(parseNote("do/4") == ((.c, nil, nil), (1, 4, nil)))
-        #expect(parseNote("sol-1") == ((.g, nil, 2), nil))
+        #expect(parseNote("do/4") == ((.do, nil, nil), (1, 4, nil)))
+        #expect(parseNote("sol-1") == ((.sol, nil, -1), nil))
     }
 
     @Test
     func parseNote_success() {
-        #expect(parseNote("a&-1/2") == ((.a, .flat, 2), (1, 2, nil)))
-        #expect(parseNote("a&&2/4.") == ((.a, .doubleFlat, 5), (1, 4, 1)))
-        #expect(parseNote("b&1.") == ((.b, .flat, 4), (nil, nil, 1)))
+        #expect(parseNote("a&-1/2") == ((.a, .flat, -1), (1, 2, nil)))
+        #expect(parseNote("a&&2/4.") == ((.a, .doubleFlat, 2), (1, 4, 1)))
+        #expect(parseNote("b&1.") == ((.b, .flat, 1), (nil, nil, 1)))
         #expect(parseNote("c#/16") == ((.c, .sharp, nil), (1, 16, nil)))
         #expect(parseNote("d##*2ms") == ((.d, .doubleSharp, nil), (2, nil, nil)))
         #expect(parseNote("e") == ((.e, nil, nil), nil))
         #expect(parseNote("e&...") == ((.e, .flat, nil), (nil, nil, 3)))
         #expect(parseNote("empty*7/4") == ((.empty, nil, nil), (7, 4, nil)))
-        #expect(parseNote("f#0/8") == ((.f, .sharp, 3), (1, 8, nil)))
-        #expect(parseNote("g-1*3/4") == ((.g, nil, 2), (3, 4, nil)))
+        #expect(parseNote("f#0/8") == ((.f, .sharp, 0), (1, 8, nil)))
+        #expect(parseNote("g-1*3/4") == ((.g, nil, -1), (3, 4, nil)))
         #expect(parseNote("g#/4") == ((.g, .sharp, nil), (1, 4, nil)))
-        #expect(parseNote("h#1/4") == ((.b, .sharp, 4), (1, 4, nil)))
+        #expect(parseNote("h#1/4") == ((.h, .sharp, 1), (1, 4, nil)))
     }
 
     @Test
     func parsePitch_chromatic() {
-        #expect(parsePitch("ais") == (.a, .sharp, nil))
-        #expect(parsePitch("cis") == (.c, .sharp, nil))
-        #expect(parsePitch("dis") == (.d, .sharp, nil))
-        #expect(parsePitch("fis") == (.f, .sharp, nil))
-        #expect(parsePitch("gis") == (.g, .sharp, nil))
+        #expect(parsePitch("ais") == (.ais, .impliedSharp, nil))
+        #expect(parsePitch("cis") == (.cis, .impliedSharp, nil))
+        #expect(parsePitch("dis") == (.dis, .impliedSharp, nil))
+        #expect(parsePitch("fis") == (.fis, .impliedSharp, nil))
+        #expect(parsePitch("gis") == (.gis, .impliedSharp, nil))
     }
 
     @Test
@@ -103,30 +103,30 @@ extension GMNParseFunctionsTests {
 
     @Test
     func parsePitch_solfege() {
-        #expect(parsePitch("do") == (.c, nil, nil))
-        #expect(parsePitch("fa") == (.f, nil, nil))
-        #expect(parsePitch("la") == (.a, nil, nil))
-        #expect(parsePitch("mi") == (.e, nil, nil))
-        #expect(parsePitch("re") == (.d, nil, nil))
-        #expect(parsePitch("si") == (.b, nil, nil))
-        #expect(parsePitch("sol") == (.g, nil, nil))
-        #expect(parsePitch("ti") == (.b, nil, nil))
+        #expect(parsePitch("do") == (.do, nil, nil))
+        #expect(parsePitch("fa") == (.fa, nil, nil))
+        #expect(parsePitch("la") == (.la, nil, nil))
+        #expect(parsePitch("mi") == (.mi, nil, nil))
+        #expect(parsePitch("re") == (.re, nil, nil))
+        #expect(parsePitch("si") == (.si, nil, nil))
+        #expect(parsePitch("sol") == (.sol, nil, nil))
+        #expect(parsePitch("ti") == (.ti, nil, nil))
     }
 
     @Test
     func parsePitch_success() {
-        #expect(parsePitch("a&-1") == (.a, .flat, 2))
-        #expect(parsePitch("a&&2") == (.a, .doubleFlat, 5))
-        #expect(parsePitch("b&1") == (.b, .flat, 4))
+        #expect(parsePitch("a&-1") == (.a, .flat, -1))
+        #expect(parsePitch("a&&2") == (.a, .doubleFlat, 2))
+        #expect(parsePitch("b&1") == (.b, .flat, 1))
         #expect(parsePitch("c#") == (.c, .sharp, nil))
         #expect(parsePitch("d##") == (.d, .doubleSharp, nil))
         #expect(parsePitch("e") == (.e, nil, nil))
         #expect(parsePitch("e&") == (.e, .flat, nil))
         #expect(parsePitch("empty") == (.empty, nil, nil))
-        #expect(parsePitch("f#0") == (.f, .sharp, 3))
-        #expect(parsePitch("g-1") == (.g, nil, 2))
+        #expect(parsePitch("f#0") == (.f, .sharp, 0))
+        #expect(parsePitch("g-1") == (.g, nil, -1))
         #expect(parsePitch("g#") == (.g, .sharp, nil))
-        #expect(parsePitch("h#1") == (.b, .sharp, 4))
+        #expect(parsePitch("h#1") == (.h, .sharp, 1))
     }
 
     @Test
@@ -197,7 +197,7 @@ private func == (lhs: ParseNoteResult?,
 private func == (lhs: ParsePitchResult?,
                  rhs: ParsePitchResult?) -> Bool {
     lhs?.accidental == rhs?.accidental
-    && lhs?.letter == rhs?.letter
+    && lhs?.name == rhs?.name
     && lhs?.octave == rhs?.octave
 }
 

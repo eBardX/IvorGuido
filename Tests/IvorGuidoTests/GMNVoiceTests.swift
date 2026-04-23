@@ -12,9 +12,9 @@ struct GMNVoiceTests {
 extension GMNVoiceTests {
     @Test
     func equatable() {
-        let note1 = GMNNote(pitch: GMNPitch(letter: .c, accidental: .natural, octave: 4),
+        let note1 = GMNNote(pitch: GMNPitch(name: .c, accidental: .natural, octave: 4),
                             duration: fdur(1, 4))
-        let note2 = GMNNote(pitch: GMNPitch(letter: .c, accidental: .natural, octave: 4),
+        let note2 = GMNNote(pitch: GMNPitch(name: .c, accidental: .natural, octave: 4),
                             duration: fdur(1, 4))
         let voice1 = GMNVoice(symbols: [.note(note1)])
         let voice2 = GMNVoice(symbols: [.note(note2)])
@@ -206,7 +206,7 @@ extension GMNVoiceTests {
 
     @Test
     func `init`() {
-        let note = GMNNote(pitch: GMNPitch(letter: .c,
+        let note = GMNNote(pitch: GMNPitch(name: .c,
                                            accidental: .natural,
                                            octave: 4),
                            duration: fdur(1, 4))
@@ -224,7 +224,7 @@ extension GMNVoiceTests {
 
     @Test
     func noTags() {
-        let note = GMNNote(pitch: GMNPitch(letter: .c,
+        let note = GMNNote(pitch: GMNPitch(name: .c,
                                            accidental: .natural,
                                            octave: 4),
                            duration: fdur(1, 4))

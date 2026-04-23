@@ -1,6 +1,9 @@
 // © 2025–2026 John Gary Pusey (see LICENSE.md)
 
 extension GMNTag {
+
+    // MARK: Public Nested Types
+
     /// A parameter passed to a Guido Music Notation tag.
     public enum Parameter {
         /// A floating-point parameter, with an optional name and optional

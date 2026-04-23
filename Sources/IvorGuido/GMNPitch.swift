@@ -1,6 +1,6 @@
 // © 2025–2026 John Gary Pusey (see LICENSE.md)
 
-/// A pitch in a Guido Music Notation note, consisting of a letter, an
+/// A pitch in a Guido Music Notation note, consisting of a name, an
 /// accidental, and an octave.
 public struct GMNPitch {
 
@@ -11,16 +11,16 @@ public struct GMNPitch {
 
     // MARK: Public Initializers
 
-    /// Creates a new pitch with the provided letter, accidental, and octave.
+    /// Creates a new pitch with the provided name, accidental, and octave.
     ///
-    /// - Parameter letter:         The letter name of this pitch.
-    /// - Parameter accidental:     The accidental applied to this pitch.
-    /// - Parameter octave:         The octave number of this pitch.
-    public init(letter: Letter,
+    /// - Parameter name:       The name of this pitch.
+    /// - Parameter accidental: The accidental applied to this pitch.
+    /// - Parameter octave:     The octave number of this pitch.
+    public init(name: Name,
                 accidental: Accidental,
                 octave: Octave) {
         self.accidental = accidental
-        self.letter = letter
+        self.name = name
         self.octave = octave
     }
 
@@ -29,8 +29,8 @@ public struct GMNPitch {
     /// The accidental applied to this pitch.
     public let accidental: Accidental
 
-    /// The letter name of this pitch.
-    public let letter: Letter
+    /// The name of this pitch.
+    public let name: Name
 
     /// The octave number of this pitch.
     public let octave: Octave

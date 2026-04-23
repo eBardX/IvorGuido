@@ -96,7 +96,7 @@ extension GMNParserTests {
             return
         }
 
-        #expect(note1.pitch.letter == .c)
+        #expect(note1.pitch.name == .c)
         #expect(note1.pitch.accidental == .sharp)
 
         guard case let .note(note2) = symbols[1]
@@ -105,7 +105,7 @@ extension GMNParserTests {
             return
         }
 
-        #expect(note2.pitch.letter == .d)
+        #expect(note2.pitch.name == .d)
         #expect(note2.pitch.accidental == .flat)
     }
 
@@ -125,7 +125,7 @@ extension GMNParserTests {
             return
         }
 
-        #expect(note1.pitch.letter == .c)
+        #expect(note1.pitch.name == .c)
 
         guard case let .fractionDots(n, d, _) = note1.duration.value
         else {
@@ -191,7 +191,7 @@ extension GMNParserTests {
             return
         }
 
-        #expect(note.pitch.letter == .c)
+        #expect(note.pitch.name == .c)
     }
 
     @Test

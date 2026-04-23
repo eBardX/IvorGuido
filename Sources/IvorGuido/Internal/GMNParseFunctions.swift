@@ -6,7 +6,7 @@ private import XestiTools
 
 internal typealias ParseDurationResult = (numerator: UInt?, denominator: UInt?, dots: UInt?)
 internal typealias ParseNoteResult = (pitch: ParsePitchResult, duration: ParseDurationResult?)
-internal typealias ParsePitchResult = (letter: GMNPitch.Letter, accidental: GMNPitch.Accidental?, octave: GMNPitch.Octave?)
+internal typealias ParsePitchResult = (name: GMNPitch.Name, accidental: GMNPitch.Accidental?, octave: GMNPitch.Octave?)
 internal typealias ParseRestResult = (String, duration: ParseDurationResult?)
 internal typealias ParseTablatureResult = (tabString: UInt, fret: String, duration: ParseDurationResult?)
 
@@ -120,26 +120,27 @@ internal func parsePitch(_ tidyInput: Substring) -> ParsePitchResult? {
     let result1 = tidyInput.splitBeforeFirst(octaveCS)
     let result2 = result1.head.splitBeforeFirst(accidentalCS)
 
-    guard let plResult = pitchLetters[result2.head]
+    guard let (name, impliedSharp) = pitchNames[result2.head]
     else { return nil }
 
     let accidental: GMNPitch.Accidental?
     let octave: GMNPitch.Octave?
 
-    if let atext = result2.tail {
+    if impliedSharp {
+        accidental = .impliedSharp
+    } else if let atext = result2.tail {
         accidental = pitchAccidentals[atext]
     } else {
         accidental = nil
     }
 
-    if let otext = result1.tail,
-       let goct = GMNPitch.Octave(otext) {  // Guido octave
-        octave = goct + 3                   // convert to standard octave
+    if let otext = result1.tail {
+        octave = GMNPitch.Octave(otext)
     } else {
         octave = nil
     }
 
-    return (plResult.letter, plResult.accidental ?? accidental, octave)
+    return (name, accidental, octave)
 }
 
 internal func parseRest(_ tidyInput: Substring) -> ParseRestResult? {
@@ -187,7 +188,7 @@ internal func splitTagNameIdent(_ tidyInput: Substring) -> (String, UInt?) {
 
 // MARK: Private Types
 
-private typealias PitchLetterResult = (letter: GMNPitch.Letter, accidental: GMNPitch.Accidental?)
+private typealias PitchNameResult = (name: GMNPitch.Name, impliedSharp: Bool)
 
 // MARK: Private Constants
 
@@ -204,28 +205,28 @@ private let pitchAccidentals: [Substring: GMNPitch.Accidental] = ["&": .flat,
                                                                   "#": .sharp,
                                                                   "##": .doubleSharp]
 
-private let pitchLetters: [Substring: PitchLetterResult] = ["a": (.a, nil),
-                                                            "ais": (.a, .sharp),
-                                                            "b": (.b, nil),
-                                                            "c": (.c, nil),
-                                                            "cis": (.c, .sharp),
-                                                            "d": (.d, nil),
-                                                            "dis": (.d, .sharp),
-                                                            "do": (.c, nil),
-                                                            "e": (.e, nil),
-                                                            "empty": (.empty, nil),
-                                                            "f": (.f, nil),
-                                                            "fa": (.f, nil),
-                                                            "fis": (.f, .sharp),
-                                                            "g": (.g, nil),
-                                                            "gis": (.g, .sharp),
-                                                            "h": (.b, nil),
-                                                            "la": (.a, nil),
-                                                            "mi": (.e, nil),
-                                                            "re": (.d, nil),
-                                                            "si": (.b, nil),
-                                                            "sol": (.g, nil),
-                                                            "ti": (.b, nil)]
+private let pitchNames: [Substring: PitchNameResult] = ["a": (.a, false),
+                                                        "ais": (.ais, true),
+                                                        "b": (.b, false),
+                                                        "c": (.c, false),
+                                                        "cis": (.cis, true),
+                                                        "d": (.d, false),
+                                                        "dis": (.dis, true),
+                                                        "do": (.`do`, false),
+                                                        "e": (.e, false),
+                                                        "empty": (.empty, false),
+                                                        "f": (.f, false),
+                                                        "fa": (.fa, false),
+                                                        "fis": (.fis, true),
+                                                        "g": (.g, false),
+                                                        "gis": (.gis, true),
+                                                        "h": (.h, false),
+                                                        "la": (.la, false),
+                                                        "mi": (.mi, false),
+                                                        "re": (.re, false),
+                                                        "si": (.si, false),
+                                                        "sol": (.sol, false),
+                                                        "ti": (.ti, false)]
 
 // MARK: Private Functions
 

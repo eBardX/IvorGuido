@@ -77,7 +77,7 @@ extension GMNParser.Matcher {
             context.lastOctave = octave
         }
 
-        return GMNPitch(letter: result.letter,
+        return GMNPitch(name: result.name,
                         accidental: result.accidental ?? .natural,
                         octave: context.lastOctave)
     }
