@@ -4,7 +4,6 @@
 import Testing
 import XestiTools
 
-@Suite
 struct GMNParseErrorTests {
 }
 

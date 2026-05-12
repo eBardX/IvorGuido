@@ -4,26 +4,6 @@
 
 import PackageDescription
 
-let package = Package(name: "IvorGuido",
-                      platforms: [.iOS(.v18),
-                                  .macOS(.v15)],
-                      products: [.library(name: "IvorGuido",
-                                          targets: ["IvorGuido"])],
-                      dependencies: [.package(url: "https://github.com/swiftlang/swift-docc-plugin.git",
-                                              .upToNextMajor(from: "1.1.0")),
-                                     .package(url: "https://github.com/eBardX/XestiTokens.git",
-                                              .upToNextMajor(from: "1.1.0")),
-                                     .package(url: "https://github.com/eBardX/XestiTools.git",
-                                              .upToNextMajor(from: "7.2.0"))],
-                      targets: [.target(name: "IvorGuido",
-                                        dependencies: [.product(name: "XestiTokens",
-                                                                package: "XestiTokens"),
-                                                       .product(name: "XestiTools",
-                                                                package: "XestiTools")]),
-                                .testTarget(name: "IvorGuidoTests",
-                                            dependencies: [.target(name: "IvorGuido")])],
-                      swiftLanguageModes: [.v6])
-
 let swiftSettings: [SwiftSetting] = [.defaultIsolation(nil),
                                      .enableUpcomingFeature("ExistentialAny"),
                                      .enableUpcomingFeature("ImmutableWeakCaptures"),
@@ -32,10 +12,22 @@ let swiftSettings: [SwiftSetting] = [.defaultIsolation(nil),
                                      .enableUpcomingFeature("MemberImportVisibility"),
                                      .enableUpcomingFeature("NonisolatedNonsendingByDefault")]
 
-for target in package.targets {
-    var settings = target.swiftSettings ?? []
-
-    settings.append(contentsOf: swiftSettings)
-
-    target.swiftSettings = settings
-}
+let package = Package(name: "IvorGuido",
+                      platforms: [.iOS(.v18),
+                                  .macOS(.v15)],
+                      products: [.library(name: "IvorGuido",
+                                          targets: ["IvorGuido"])],
+                      dependencies: [.package(url: "https://github.com/eBardX/XestiTokens.git",
+                                              .upToNextMajor(from: "1.1.0")),
+                                     .package(url: "https://github.com/eBardX/XestiTools.git",
+                                              .upToNextMajor(from: "7.2.0"))],
+                      targets: [.target(name: "IvorGuido",
+                                        dependencies: [.product(name: "XestiTokens",
+                                                                package: "XestiTokens"),
+                                                       .product(name: "XestiTools",
+                                                                package: "XestiTools")],
+                                        swiftSettings: swiftSettings),
+                                .testTarget(name: "IvorGuidoTests",
+                                            dependencies: [.target(name: "IvorGuido")],
+                                            swiftSettings: swiftSettings)],
+                      swiftLanguageModes: [.v6])

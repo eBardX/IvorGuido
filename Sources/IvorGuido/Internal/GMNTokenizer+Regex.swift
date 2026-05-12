@@ -6,7 +6,7 @@ extension GMNTokenizer {
 
     // MARK: Internal Type Properties
 
-    nonisolated(unsafe) internal static let regexFloatingValue = Regex {
+    internal nonisolated(unsafe) static let regexFloatingValue = Regex {
         Optionally {
             signCC
         }
@@ -15,46 +15,46 @@ extension GMNTokenizer {
         decUInteger
     }
 
-    nonisolated(unsafe) internal static let regexIntegerValue = Regex {
+    internal nonisolated(unsafe) static let regexIntegerValue = Regex {
         Optionally {
             signCC
         }
         decUInteger
     }
 
-    nonisolated(unsafe) internal static let regexNote = Regex {
+    internal nonisolated(unsafe) static let regexNote = Regex {
         pitch
         Optionally {
             duration
         }
     }
 
-    nonisolated(unsafe) internal static let regexParameterName = Regex {
+    internal nonisolated(unsafe) static let regexParameterName = Regex {
         name
     }
 
-    nonisolated(unsafe) internal static let regexRest = Regex {
+    internal nonisolated(unsafe) static let regexRest = Regex {
         "_"
         Optionally {
             duration
         }
     }
 
-    nonisolated(unsafe) internal static let regexStringValue = Regex {
+    internal nonisolated(unsafe) static let regexStringValue = Regex {
         ChoiceOf {
             doubleQuotedString
             singleQuotedString
         }
     }
 
-    nonisolated(unsafe) internal static let regexTablature = Regex {
+    internal nonisolated(unsafe) static let regexTablature = Regex {
         tablature
         Optionally {
             duration
         }
     }
 
-    nonisolated(unsafe) internal static let regexTagName = Regex {
+    internal nonisolated(unsafe) static let regexTagName = Regex {
         ChoiceOf {
             "|"
             Regex {
@@ -68,12 +68,12 @@ extension GMNTokenizer {
         }
     }
 
-    nonisolated(unsafe) internal static let regexUnit = Regex {
+    internal nonisolated(unsafe) static let regexUnit = Regex {
         unit
         delimiterLookahead
     }
 
-    nonisolated(unsafe) internal static let regexVariableName = Regex {
+    internal nonisolated(unsafe) static let regexVariableName = Regex {
         "$"
         name
     }
@@ -85,13 +85,13 @@ extension GMNTokenizer {
 
     // MARK: Private Type Properties
 
-    nonisolated(unsafe) private static let accidentals = Regex {
+    private nonisolated(unsafe) static let accidentals = Regex {
         Repeat(1...2) {
             accidentalCC
         }
     }
 
-    nonisolated(unsafe) private static let chromatic = Regex {
+    private nonisolated(unsafe) static let chromatic = Regex {
         ChoiceOf {
             "ais"
             "cis"
@@ -101,13 +101,13 @@ extension GMNTokenizer {
         }
     }
 
-    nonisolated(unsafe) private static let decUInteger = Regex {
+    private nonisolated(unsafe) static let decUInteger = Regex {
         OneOrMore {
             digitCC
         }
     }
 
-    nonisolated(unsafe) private static let delimiterLookahead = Regex {
+    private nonisolated(unsafe) static let delimiterLookahead = Regex {
         Lookahead {
             ChoiceOf {
                 delimiterCC
@@ -116,18 +116,18 @@ extension GMNTokenizer {
         }
     }
 
-    nonisolated(unsafe) private static let denominator = Regex {
+    private nonisolated(unsafe) static let denominator = Regex {
         "/"
         decUInteger
     }
 
-    nonisolated(unsafe) private static let dots = Regex {
+    private nonisolated(unsafe) static let dots = Regex {
         Repeat(1...3) {
             "."
         }
     }
 
-    nonisolated(unsafe) internal static let doubleQuotedString = Regex {
+    internal nonisolated(unsafe) static let doubleQuotedString = Regex {
         "\""
         ZeroOrMore {
             ChoiceOf {
@@ -142,7 +142,7 @@ extension GMNTokenizer {
         "\""
     }
 
-    nonisolated(unsafe) private static let duration = Regex {
+    private nonisolated(unsafe) static let duration = Regex {
         ChoiceOf {
             Regex {
                 ChoiceOf {
@@ -170,7 +170,7 @@ extension GMNTokenizer {
         }
     }
 
-    nonisolated(unsafe) private static let fret = Regex {
+    private nonisolated(unsafe) static let fret = Regex {
         ":"
         ZeroOrMore {
             ChoiceOf {
@@ -184,26 +184,26 @@ extension GMNTokenizer {
         ":"
     }
 
-    nonisolated(unsafe) private static let name = Regex {
+    private nonisolated(unsafe) static let name = Regex {
         nameHeadCC
         ZeroOrMore {
             nameTailCC
         }
     }
 
-    nonisolated(unsafe) private static let numerator = Regex {
+    private nonisolated(unsafe) static let numerator = Regex {
         "*"
         decUInteger
     }
 
-    nonisolated(unsafe) private static let octave = Regex {
+    private nonisolated(unsafe) static let octave = Regex {
         Optionally {
             signCC
         }
         decUInteger
     }
 
-    nonisolated(unsafe) private static let pitch = Regex {
+    private nonisolated(unsafe) static let pitch = Regex {
         pitchClass
         Optionally {
             accidentals
@@ -213,7 +213,7 @@ extension GMNTokenizer {
         }
     }
 
-    nonisolated(unsafe) private static let pitchClass = Regex {
+    private nonisolated(unsafe) static let pitchClass = Regex {
         ChoiceOf {
             chromatic
             diatonicCC
@@ -223,7 +223,7 @@ extension GMNTokenizer {
         delimiterLookahead
     }
 
-    nonisolated(unsafe) internal static let singleQuotedString = Regex {
+    internal nonisolated(unsafe) static let singleQuotedString = Regex {
         "'"
         ZeroOrMore {
             ChoiceOf {
@@ -238,7 +238,7 @@ extension GMNTokenizer {
         "'"
     }
 
-    nonisolated(unsafe) private static let solfege = Regex {
+    private nonisolated(unsafe) static let solfege = Regex {
         ChoiceOf {
             "do"
             "re"
@@ -251,13 +251,13 @@ extension GMNTokenizer {
         }
     }
 
-    nonisolated(unsafe) private static let tablature = Regex {
+    private nonisolated(unsafe) static let tablature = Regex {
         "s"
         tabStringCC
         fret
     }
 
-    nonisolated(unsafe) private static let unit = Regex {
+    private nonisolated(unsafe) static let unit = Regex {
         ChoiceOf {
             "m"
             "cm"

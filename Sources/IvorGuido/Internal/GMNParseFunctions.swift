@@ -212,7 +212,7 @@ private let pitchNames: [Substring: PitchNameResult] = ["a": (.a, false),
                                                         "cis": (.cis, true),
                                                         "d": (.d, false),
                                                         "dis": (.dis, true),
-                                                        "do": (.`do`, false),
+                                                        "do": (.do, false),
                                                         "e": (.e, false),
                                                         "empty": (.empty, false),
                                                         "f": (.f, false),
@@ -235,7 +235,9 @@ private func _convertEscapedCharacter(_ reader: inout SequenceReader<Substring>)
     else { return nil }
 
     switch chr {
-    case "\"", "\\", "'":
+    case "'",
+         "\"",
+         "\\":
         return chr
 
     case "n":

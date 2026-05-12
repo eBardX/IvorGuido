@@ -32,7 +32,10 @@ extension GMNSymbol {
     /// musical content).
     public var isMusic: Bool {
         switch self {
-        case .chord, .note, .rest, .tablature:
+        case .chord,
+             .note,
+             .rest,
+             .tablature:
             true
 
         case let .tag(tag):

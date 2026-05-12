@@ -7,28 +7,28 @@ extension GMNTag.Parameter {
     /// A unit of measurement for a Guido Music Notation tag parameter.
     public enum Unit: String {
         /// Centimeters.
-        case cm = "cm"
+        case cm
 
         /// Half-spaces (Guido-specific relative unit).
-        case hs = "hs"
+        case hs
 
         /// Inches.
-        case `in` = "in"
+        case `in`
 
         /// Meters.
-        case m = "m"
+        case m
 
         /// Millimeters.
-        case mm = "mm"
+        case mm
 
         /// Picas.
-        case pc = "pc"
+        case pc
 
         /// Points.
-        case pt = "pt"
+        case pt
 
         /// Relative units.
-        case rl = "rl"
+        case rl
     }
 }
 

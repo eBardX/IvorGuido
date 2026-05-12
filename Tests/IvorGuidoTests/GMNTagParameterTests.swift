@@ -3,7 +3,6 @@
 @testable import IvorGuido
 import Testing
 
-@Suite
 struct GMNTagParameterTests {
 }
 

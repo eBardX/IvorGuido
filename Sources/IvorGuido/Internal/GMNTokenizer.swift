@@ -47,7 +47,7 @@ extension GMNTokenizer {
 
     // MARK: Private Type Properties
 
-    nonisolated(unsafe) private static let rules: [Rule] = [Rule(regexUnit, .unit),                        // MUST come before .parameterName
+    private nonisolated(unsafe) static let rules: [Rule] = [Rule(regexUnit, .unit),                        // MUST come before .parameterName
                                                             Rule(regex: /[ \n\r\t]+/,
                                                                  disposition: .skip(nil)),
                                                             Rule(regex: /%.*(?=[\n\r]|$)/,

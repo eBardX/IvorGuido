@@ -4,7 +4,6 @@ import Foundation
 @testable import IvorGuido
 import Testing
 
-@Suite
 struct GMNParserTests {
 }
 
@@ -60,7 +59,7 @@ extension GMNParserTests {
 
     @Test
     func parse_dataConversionFailed() throws {
-        let data = Data([0xFF, 0xFE])
+        let data = Data([0xff, 0xfe])
         let parser = GMNParser()
 
         #expect(throws: GMNParseError.self) {
