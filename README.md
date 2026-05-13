@@ -21,4 +21,4 @@ IvorGuido is available under [the MIT license][license].
 
 [docc]:     https://www.swift.org/documentation/docc/
 [license]:  https://github.com/eBardX/IvorGuido/blob/main/LICENSE.md
-[refdoc]:   https://eBardX.github.io/IvorGuido/documentation/ivorguido
+[refdoc]:   https://eBardX.github.io/ivor-packages-docs/documentation/ivorguido
