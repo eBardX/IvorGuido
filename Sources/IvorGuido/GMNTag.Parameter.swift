@@ -6,8 +6,7 @@ extension GMNTag {
 
     /// A parameter passed to a Guido Music Notation tag.
     public enum Parameter {
-        /// A floating-point parameter, with an optional name and optional
-        /// unit.
+        /// A floating-point parameter, with an optional name and optional unit.
         case floating(String?, Double, Unit?)
 
         /// An integer parameter, with an optional name and optional unit.
@@ -66,8 +65,8 @@ extension GMNTag.Parameter {
         }
     }
 
-    /// The quoted string value of this parameter, or `nil` if this parameter
-    /// is not a quoted string parameter.
+    /// The quoted string value of this parameter, or `nil` if this parameter is
+    /// not a quoted string parameter.
     public var stringValue: String? {
         switch self {
         case let .string(_, value):
@@ -78,8 +77,8 @@ extension GMNTag.Parameter {
         }
     }
 
-    /// The unit of this parameter, or `nil` if this parameter has no unit or
-    /// is not a numeric parameter.
+    /// The unit of this parameter, or `nil` if this parameter has no unit or is
+    /// not a numeric parameter.
     public var unit: Unit? {
         switch self {
         case let .floating(_, _, unit),
@@ -93,12 +92,13 @@ extension GMNTag.Parameter {
 
     // MARK: Public Instance Method
 
-    /// Returns `true` if this parameter is unnamed or its name equals
-    /// `pname`.
+    /// Returns a Boolean value indicating whether this parameter is unnamed or
+    /// its name equals `pname`.
     ///
     /// - Parameter pname:  The name to compare against.
-    /// - Returns:          `true` if this parameter has no name or if its
-    ///                     name equals `pname`; otherwise, `false`.
+    ///
+    /// - Returns:  `true` if this parameter has no name or if its name equals
+    ///             `pname`; otherwise, `false`.
     public func hasNameOrNil(_ pname: String) -> Bool {
         guard let name
         else { return true }

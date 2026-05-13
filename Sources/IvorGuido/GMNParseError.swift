@@ -47,12 +47,12 @@ public enum GMNParseError {
 // MARK: - EnhancedError
 
 extension GMNParseError: EnhancedError {
-    /// Returns the error category identifying the source module.
+    /// The error category identifying the source module.
     public var category: Category? {
         Category("IvorGuido")
     }
 
-    /// Returns a human-readable description of this error.
+    /// A human-readable description of this error.
     public var message: String {
         switch self {
         case .dataConversionFailed:

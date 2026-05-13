@@ -71,9 +71,8 @@ extension GMNDuration {
 
     // MARK: Public Instance Properties
 
-    /// The denominator of the note fraction.
-    ///
-    /// Returns `nil` if this duration is expressed in milliseconds.
+    /// The denominator of the note fraction, or `nil` if this duration is
+    /// expressed in milliseconds.
     public var denominator: UInt? {
         switch value {
         case let .fractionDots(_, den, _):
@@ -84,9 +83,8 @@ extension GMNDuration {
         }
     }
 
-    /// The number of augmentation dots (0–3).
-    ///
-    /// Returns `nil` if this duration is expressed in milliseconds.
+    /// The number of augmentation dots (0–3), or `nil` if this duration is
+    /// expressed in milliseconds.
     public var dots: UInt? {
         switch value {
         case let .fractionDots(_, _, dots):
@@ -97,9 +95,8 @@ extension GMNDuration {
         }
     }
 
-    /// The duration in milliseconds.
-    ///
-    /// Returns `nil` if this duration is expressed as a fractional note value.
+    /// The duration in milliseconds, or `nil` if this duration is expressed as
+    /// a fractional note value.
     public var milliseconds: UInt? {
         switch value {
         case let .milliseconds(ms):
@@ -110,9 +107,8 @@ extension GMNDuration {
         }
     }
 
-    /// The numerator of the note fraction.
-    ///
-    /// Returns `nil` if this duration is expressed in milliseconds.
+    /// The numerator of the note fraction, or `nil` if this duration is
+    /// expressed in milliseconds.
     public var numerator: UInt? {
         switch value {
         case let .fractionDots(num, _, _):

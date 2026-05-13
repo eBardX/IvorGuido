@@ -14,7 +14,7 @@ public struct GMNPitch {
     /// Creates a new pitch with the provided name, accidental, and octave.
     ///
     /// - Parameter name:       The name of this pitch.
-    /// - Parameter accidental: The accidental applied to this pitch.
+    /// - Parameter accidental: The accidental of the pitch.
     /// - Parameter octave:     The octave number of this pitch.
     public init(name: Name,
                 accidental: Accidental,
@@ -26,7 +26,7 @@ public struct GMNPitch {
 
     // MARK: Public Instance Properties
 
-    /// The accidental applied to this pitch.
+    /// The accidental of this pitch.
     public let accidental: Accidental
 
     /// The name of this pitch.
